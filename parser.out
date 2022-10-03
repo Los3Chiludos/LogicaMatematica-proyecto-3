@@ -2,351 +2,319 @@ Created by PLY version 3.11 (http://www.dabeaz.com/ply)
 
 Grammar
 
-Rule 0     S' -> expression
-Rule 1     expression -> expression AND expression
-Rule 2     expression -> expression OOR expression
-Rule 3     expression -> expression IMP expression
-Rule 4     expression -> expression IMD expression
-Rule 5     expression -> NEG expression
-Rule 6     expression -> LPR expression RPR
-Rule 7     expression -> VAR
-Rule 8     empty -> <empty>
+Rule 0     S' -> calc
+Rule 1     calc -> expression
+Rule 2     expression -> expression AND expression
+Rule 3     expression -> expression OOR expression
+Rule 4     expression -> expression IMP expression
+Rule 5     expression -> expression IMD expression
+Rule 6     expression -> NEG expression
+Rule 7     expression -> LPR expression RPR
+Rule 8     expression -> VAR
+Rule 9     empty -> <empty>
 
 Terminals, with rules where they appear
 
-AND                  : 1
-IMD                  : 4
-IMP                  : 3
-LPR                  : 6
-NEG                  : 5
-OOR                  : 2
-RPR                  : 6
-VAR                  : 7
+AND                  : 2
+IMD                  : 5
+IMP                  : 4
+LPR                  : 7
+NEG                  : 6
+OOR                  : 3
+RPR                  : 7
+VAR                  : 8
 error                : 
 
 Nonterminals, with rules where they appear
 
+calc                 : 0
 empty                : 
-expression           : 1 1 2 2 3 3 4 4 5 6 0
+expression           : 1 2 2 3 3 4 4 5 5 6 7
 
 Parsing method: LALR
 
 state 0
 
-    (0) S' -> . expression
-    (1) expression -> . expression AND expression
-    (2) expression -> . expression OOR expression
-    (3) expression -> . expression IMP expression
-    (4) expression -> . expression IMD expression
-    (5) expression -> . NEG expression
-    (6) expression -> . LPR expression RPR
-    (7) expression -> . VAR
+    (0) S' -> . calc
+    (1) calc -> . expression
+    (2) expression -> . expression AND expression
+    (3) expression -> . expression OOR expression
+    (4) expression -> . expression IMP expression
+    (5) expression -> . expression IMD expression
+    (6) expression -> . NEG expression
+    (7) expression -> . LPR expression RPR
+    (8) expression -> . VAR
 
-    NEG             shift and go to state 2
-    LPR             shift and go to state 3
-    VAR             shift and go to state 4
+    NEG             shift and go to state 3
+    LPR             shift and go to state 4
+    VAR             shift and go to state 5
 
-    expression                     shift and go to state 1
+    calc                           shift and go to state 1
+    expression                     shift and go to state 2
 
 state 1
 
-    (0) S' -> expression .
-    (1) expression -> expression . AND expression
-    (2) expression -> expression . OOR expression
-    (3) expression -> expression . IMP expression
-    (4) expression -> expression . IMD expression
+    (0) S' -> calc .
 
-    AND             shift and go to state 5
-    OOR             shift and go to state 6
-    IMP             shift and go to state 7
-    IMD             shift and go to state 8
 
 
 state 2
 
-    (5) expression -> NEG . expression
-    (1) expression -> . expression AND expression
-    (2) expression -> . expression OOR expression
-    (3) expression -> . expression IMP expression
-    (4) expression -> . expression IMD expression
-    (5) expression -> . NEG expression
-    (6) expression -> . LPR expression RPR
-    (7) expression -> . VAR
+    (1) calc -> expression .
+    (2) expression -> expression . AND expression
+    (3) expression -> expression . OOR expression
+    (4) expression -> expression . IMP expression
+    (5) expression -> expression . IMD expression
 
-    NEG             shift and go to state 2
-    LPR             shift and go to state 3
-    VAR             shift and go to state 4
+    $end            reduce using rule 1 (calc -> expression .)
+    AND             shift and go to state 6
+    OOR             shift and go to state 7
+    IMP             shift and go to state 8
+    IMD             shift and go to state 9
 
-    expression                     shift and go to state 9
 
 state 3
 
-    (6) expression -> LPR . expression RPR
-    (1) expression -> . expression AND expression
-    (2) expression -> . expression OOR expression
-    (3) expression -> . expression IMP expression
-    (4) expression -> . expression IMD expression
-    (5) expression -> . NEG expression
-    (6) expression -> . LPR expression RPR
-    (7) expression -> . VAR
+    (6) expression -> NEG . expression
+    (2) expression -> . expression AND expression
+    (3) expression -> . expression OOR expression
+    (4) expression -> . expression IMP expression
+    (5) expression -> . expression IMD expression
+    (6) expression -> . NEG expression
+    (7) expression -> . LPR expression RPR
+    (8) expression -> . VAR
 
-    NEG             shift and go to state 2
-    LPR             shift and go to state 3
-    VAR             shift and go to state 4
+    NEG             shift and go to state 3
+    LPR             shift and go to state 4
+    VAR             shift and go to state 5
 
     expression                     shift and go to state 10
 
 state 4
 
-    (7) expression -> VAR .
+    (7) expression -> LPR . expression RPR
+    (2) expression -> . expression AND expression
+    (3) expression -> . expression OOR expression
+    (4) expression -> . expression IMP expression
+    (5) expression -> . expression IMD expression
+    (6) expression -> . NEG expression
+    (7) expression -> . LPR expression RPR
+    (8) expression -> . VAR
 
-    AND             reduce using rule 7 (expression -> VAR .)
-    OOR             reduce using rule 7 (expression -> VAR .)
-    IMP             reduce using rule 7 (expression -> VAR .)
-    IMD             reduce using rule 7 (expression -> VAR .)
-    $end            reduce using rule 7 (expression -> VAR .)
-    RPR             reduce using rule 7 (expression -> VAR .)
-
-
-state 5
-
-    (1) expression -> expression AND . expression
-    (1) expression -> . expression AND expression
-    (2) expression -> . expression OOR expression
-    (3) expression -> . expression IMP expression
-    (4) expression -> . expression IMD expression
-    (5) expression -> . NEG expression
-    (6) expression -> . LPR expression RPR
-    (7) expression -> . VAR
-
-    NEG             shift and go to state 2
-    LPR             shift and go to state 3
-    VAR             shift and go to state 4
+    NEG             shift and go to state 3
+    LPR             shift and go to state 4
+    VAR             shift and go to state 5
 
     expression                     shift and go to state 11
 
+state 5
+
+    (8) expression -> VAR .
+
+    AND             reduce using rule 8 (expression -> VAR .)
+    OOR             reduce using rule 8 (expression -> VAR .)
+    IMP             reduce using rule 8 (expression -> VAR .)
+    IMD             reduce using rule 8 (expression -> VAR .)
+    $end            reduce using rule 8 (expression -> VAR .)
+    RPR             reduce using rule 8 (expression -> VAR .)
+
+
 state 6
 
-    (2) expression -> expression OOR . expression
-    (1) expression -> . expression AND expression
-    (2) expression -> . expression OOR expression
-    (3) expression -> . expression IMP expression
-    (4) expression -> . expression IMD expression
-    (5) expression -> . NEG expression
-    (6) expression -> . LPR expression RPR
-    (7) expression -> . VAR
+    (2) expression -> expression AND . expression
+    (2) expression -> . expression AND expression
+    (3) expression -> . expression OOR expression
+    (4) expression -> . expression IMP expression
+    (5) expression -> . expression IMD expression
+    (6) expression -> . NEG expression
+    (7) expression -> . LPR expression RPR
+    (8) expression -> . VAR
 
-    NEG             shift and go to state 2
-    LPR             shift and go to state 3
-    VAR             shift and go to state 4
+    NEG             shift and go to state 3
+    LPR             shift and go to state 4
+    VAR             shift and go to state 5
 
     expression                     shift and go to state 12
 
 state 7
 
-    (3) expression -> expression IMP . expression
-    (1) expression -> . expression AND expression
-    (2) expression -> . expression OOR expression
-    (3) expression -> . expression IMP expression
-    (4) expression -> . expression IMD expression
-    (5) expression -> . NEG expression
-    (6) expression -> . LPR expression RPR
-    (7) expression -> . VAR
+    (3) expression -> expression OOR . expression
+    (2) expression -> . expression AND expression
+    (3) expression -> . expression OOR expression
+    (4) expression -> . expression IMP expression
+    (5) expression -> . expression IMD expression
+    (6) expression -> . NEG expression
+    (7) expression -> . LPR expression RPR
+    (8) expression -> . VAR
 
-    NEG             shift and go to state 2
-    LPR             shift and go to state 3
-    VAR             shift and go to state 4
+    NEG             shift and go to state 3
+    LPR             shift and go to state 4
+    VAR             shift and go to state 5
 
     expression                     shift and go to state 13
 
 state 8
 
-    (4) expression -> expression IMD . expression
-    (1) expression -> . expression AND expression
-    (2) expression -> . expression OOR expression
-    (3) expression -> . expression IMP expression
-    (4) expression -> . expression IMD expression
-    (5) expression -> . NEG expression
-    (6) expression -> . LPR expression RPR
-    (7) expression -> . VAR
+    (4) expression -> expression IMP . expression
+    (2) expression -> . expression AND expression
+    (3) expression -> . expression OOR expression
+    (4) expression -> . expression IMP expression
+    (5) expression -> . expression IMD expression
+    (6) expression -> . NEG expression
+    (7) expression -> . LPR expression RPR
+    (8) expression -> . VAR
 
-    NEG             shift and go to state 2
-    LPR             shift and go to state 3
-    VAR             shift and go to state 4
+    NEG             shift and go to state 3
+    LPR             shift and go to state 4
+    VAR             shift and go to state 5
 
     expression                     shift and go to state 14
 
 state 9
 
-    (5) expression -> NEG expression .
-    (1) expression -> expression . AND expression
-    (2) expression -> expression . OOR expression
-    (3) expression -> expression . IMP expression
-    (4) expression -> expression . IMD expression
+    (5) expression -> expression IMD . expression
+    (2) expression -> . expression AND expression
+    (3) expression -> . expression OOR expression
+    (4) expression -> . expression IMP expression
+    (5) expression -> . expression IMD expression
+    (6) expression -> . NEG expression
+    (7) expression -> . LPR expression RPR
+    (8) expression -> . VAR
 
-  ! shift/reduce conflict for AND resolved as shift
-  ! shift/reduce conflict for OOR resolved as shift
-  ! shift/reduce conflict for IMP resolved as shift
-  ! shift/reduce conflict for IMD resolved as shift
-    $end            reduce using rule 5 (expression -> NEG expression .)
-    RPR             reduce using rule 5 (expression -> NEG expression .)
-    AND             shift and go to state 5
-    OOR             shift and go to state 6
-    IMP             shift and go to state 7
-    IMD             shift and go to state 8
+    NEG             shift and go to state 3
+    LPR             shift and go to state 4
+    VAR             shift and go to state 5
 
-  ! AND             [ reduce using rule 5 (expression -> NEG expression .) ]
-  ! OOR             [ reduce using rule 5 (expression -> NEG expression .) ]
-  ! IMP             [ reduce using rule 5 (expression -> NEG expression .) ]
-  ! IMD             [ reduce using rule 5 (expression -> NEG expression .) ]
-
+    expression                     shift and go to state 15
 
 state 10
 
-    (6) expression -> LPR expression . RPR
-    (1) expression -> expression . AND expression
-    (2) expression -> expression . OOR expression
-    (3) expression -> expression . IMP expression
-    (4) expression -> expression . IMD expression
+    (6) expression -> NEG expression .
+    (2) expression -> expression . AND expression
+    (3) expression -> expression . OOR expression
+    (4) expression -> expression . IMP expression
+    (5) expression -> expression . IMD expression
 
-    RPR             shift and go to state 15
-    AND             shift and go to state 5
-    OOR             shift and go to state 6
-    IMP             shift and go to state 7
-    IMD             shift and go to state 8
+    AND             reduce using rule 6 (expression -> NEG expression .)
+    OOR             reduce using rule 6 (expression -> NEG expression .)
+    $end            reduce using rule 6 (expression -> NEG expression .)
+    RPR             reduce using rule 6 (expression -> NEG expression .)
+    IMP             shift and go to state 8
+    IMD             shift and go to state 9
+
+  ! IMP             [ reduce using rule 6 (expression -> NEG expression .) ]
+  ! IMD             [ reduce using rule 6 (expression -> NEG expression .) ]
+  ! AND             [ shift and go to state 6 ]
+  ! OOR             [ shift and go to state 7 ]
 
 
 state 11
 
-    (1) expression -> expression AND expression .
-    (1) expression -> expression . AND expression
-    (2) expression -> expression . OOR expression
-    (3) expression -> expression . IMP expression
-    (4) expression -> expression . IMD expression
+    (7) expression -> LPR expression . RPR
+    (2) expression -> expression . AND expression
+    (3) expression -> expression . OOR expression
+    (4) expression -> expression . IMP expression
+    (5) expression -> expression . IMD expression
 
-  ! shift/reduce conflict for AND resolved as shift
-  ! shift/reduce conflict for OOR resolved as shift
-  ! shift/reduce conflict for IMP resolved as shift
-  ! shift/reduce conflict for IMD resolved as shift
-    $end            reduce using rule 1 (expression -> expression AND expression .)
-    RPR             reduce using rule 1 (expression -> expression AND expression .)
-    AND             shift and go to state 5
-    OOR             shift and go to state 6
-    IMP             shift and go to state 7
-    IMD             shift and go to state 8
-
-  ! AND             [ reduce using rule 1 (expression -> expression AND expression .) ]
-  ! OOR             [ reduce using rule 1 (expression -> expression AND expression .) ]
-  ! IMP             [ reduce using rule 1 (expression -> expression AND expression .) ]
-  ! IMD             [ reduce using rule 1 (expression -> expression AND expression .) ]
+    RPR             shift and go to state 16
+    AND             shift and go to state 6
+    OOR             shift and go to state 7
+    IMP             shift and go to state 8
+    IMD             shift and go to state 9
 
 
 state 12
 
-    (2) expression -> expression OOR expression .
-    (1) expression -> expression . AND expression
-    (2) expression -> expression . OOR expression
-    (3) expression -> expression . IMP expression
-    (4) expression -> expression . IMD expression
+    (2) expression -> expression AND expression .
+    (2) expression -> expression . AND expression
+    (3) expression -> expression . OOR expression
+    (4) expression -> expression . IMP expression
+    (5) expression -> expression . IMD expression
 
-  ! shift/reduce conflict for AND resolved as shift
-  ! shift/reduce conflict for OOR resolved as shift
-  ! shift/reduce conflict for IMP resolved as shift
-  ! shift/reduce conflict for IMD resolved as shift
-    $end            reduce using rule 2 (expression -> expression OOR expression .)
-    RPR             reduce using rule 2 (expression -> expression OOR expression .)
-    AND             shift and go to state 5
-    OOR             shift and go to state 6
-    IMP             shift and go to state 7
-    IMD             shift and go to state 8
+    AND             reduce using rule 2 (expression -> expression AND expression .)
+    OOR             reduce using rule 2 (expression -> expression AND expression .)
+    $end            reduce using rule 2 (expression -> expression AND expression .)
+    RPR             reduce using rule 2 (expression -> expression AND expression .)
+    IMP             shift and go to state 8
+    IMD             shift and go to state 9
 
-  ! AND             [ reduce using rule 2 (expression -> expression OOR expression .) ]
-  ! OOR             [ reduce using rule 2 (expression -> expression OOR expression .) ]
-  ! IMP             [ reduce using rule 2 (expression -> expression OOR expression .) ]
-  ! IMD             [ reduce using rule 2 (expression -> expression OOR expression .) ]
+  ! IMP             [ reduce using rule 2 (expression -> expression AND expression .) ]
+  ! IMD             [ reduce using rule 2 (expression -> expression AND expression .) ]
+  ! AND             [ shift and go to state 6 ]
+  ! OOR             [ shift and go to state 7 ]
 
 
 state 13
 
-    (3) expression -> expression IMP expression .
-    (1) expression -> expression . AND expression
-    (2) expression -> expression . OOR expression
-    (3) expression -> expression . IMP expression
-    (4) expression -> expression . IMD expression
+    (3) expression -> expression OOR expression .
+    (2) expression -> expression . AND expression
+    (3) expression -> expression . OOR expression
+    (4) expression -> expression . IMP expression
+    (5) expression -> expression . IMD expression
 
-  ! shift/reduce conflict for AND resolved as shift
-  ! shift/reduce conflict for OOR resolved as shift
-  ! shift/reduce conflict for IMP resolved as shift
-  ! shift/reduce conflict for IMD resolved as shift
-    $end            reduce using rule 3 (expression -> expression IMP expression .)
-    RPR             reduce using rule 3 (expression -> expression IMP expression .)
-    AND             shift and go to state 5
-    OOR             shift and go to state 6
-    IMP             shift and go to state 7
-    IMD             shift and go to state 8
+    OOR             reduce using rule 3 (expression -> expression OOR expression .)
+    $end            reduce using rule 3 (expression -> expression OOR expression .)
+    RPR             reduce using rule 3 (expression -> expression OOR expression .)
+    AND             shift and go to state 6
+    IMP             shift and go to state 8
+    IMD             shift and go to state 9
 
-  ! AND             [ reduce using rule 3 (expression -> expression IMP expression .) ]
-  ! OOR             [ reduce using rule 3 (expression -> expression IMP expression .) ]
-  ! IMP             [ reduce using rule 3 (expression -> expression IMP expression .) ]
-  ! IMD             [ reduce using rule 3 (expression -> expression IMP expression .) ]
+  ! AND             [ reduce using rule 3 (expression -> expression OOR expression .) ]
+  ! IMP             [ reduce using rule 3 (expression -> expression OOR expression .) ]
+  ! IMD             [ reduce using rule 3 (expression -> expression OOR expression .) ]
+  ! OOR             [ shift and go to state 7 ]
 
 
 state 14
 
-    (4) expression -> expression IMD expression .
-    (1) expression -> expression . AND expression
-    (2) expression -> expression . OOR expression
-    (3) expression -> expression . IMP expression
-    (4) expression -> expression . IMD expression
+    (4) expression -> expression IMP expression .
+    (2) expression -> expression . AND expression
+    (3) expression -> expression . OOR expression
+    (4) expression -> expression . IMP expression
+    (5) expression -> expression . IMD expression
 
-  ! shift/reduce conflict for AND resolved as shift
-  ! shift/reduce conflict for OOR resolved as shift
-  ! shift/reduce conflict for IMP resolved as shift
-  ! shift/reduce conflict for IMD resolved as shift
-    $end            reduce using rule 4 (expression -> expression IMD expression .)
-    RPR             reduce using rule 4 (expression -> expression IMD expression .)
-    AND             shift and go to state 5
-    OOR             shift and go to state 6
-    IMP             shift and go to state 7
-    IMD             shift and go to state 8
+    AND             reduce using rule 4 (expression -> expression IMP expression .)
+    OOR             reduce using rule 4 (expression -> expression IMP expression .)
+    IMP             reduce using rule 4 (expression -> expression IMP expression .)
+    $end            reduce using rule 4 (expression -> expression IMP expression .)
+    RPR             reduce using rule 4 (expression -> expression IMP expression .)
+    IMD             shift and go to state 9
 
-  ! AND             [ reduce using rule 4 (expression -> expression IMD expression .) ]
-  ! OOR             [ reduce using rule 4 (expression -> expression IMD expression .) ]
-  ! IMP             [ reduce using rule 4 (expression -> expression IMD expression .) ]
-  ! IMD             [ reduce using rule 4 (expression -> expression IMD expression .) ]
+  ! IMD             [ reduce using rule 4 (expression -> expression IMP expression .) ]
+  ! AND             [ shift and go to state 6 ]
+  ! OOR             [ shift and go to state 7 ]
+  ! IMP             [ shift and go to state 8 ]
 
 
 state 15
 
-    (6) expression -> LPR expression RPR .
+    (5) expression -> expression IMD expression .
+    (2) expression -> expression . AND expression
+    (3) expression -> expression . OOR expression
+    (4) expression -> expression . IMP expression
+    (5) expression -> expression . IMD expression
 
-    AND             reduce using rule 6 (expression -> LPR expression RPR .)
-    OOR             reduce using rule 6 (expression -> LPR expression RPR .)
-    IMP             reduce using rule 6 (expression -> LPR expression RPR .)
-    IMD             reduce using rule 6 (expression -> LPR expression RPR .)
-    $end            reduce using rule 6 (expression -> LPR expression RPR .)
-    RPR             reduce using rule 6 (expression -> LPR expression RPR .)
+    AND             reduce using rule 5 (expression -> expression IMD expression .)
+    OOR             reduce using rule 5 (expression -> expression IMD expression .)
+    IMP             reduce using rule 5 (expression -> expression IMD expression .)
+    IMD             reduce using rule 5 (expression -> expression IMD expression .)
+    $end            reduce using rule 5 (expression -> expression IMD expression .)
+    RPR             reduce using rule 5 (expression -> expression IMD expression .)
 
-WARNING: 
-WARNING: Conflicts:
-WARNING: 
-WARNING: shift/reduce conflict for AND in state 9 resolved as shift
-WARNING: shift/reduce conflict for OOR in state 9 resolved as shift
-WARNING: shift/reduce conflict for IMP in state 9 resolved as shift
-WARNING: shift/reduce conflict for IMD in state 9 resolved as shift
-WARNING: shift/reduce conflict for AND in state 11 resolved as shift
-WARNING: shift/reduce conflict for OOR in state 11 resolved as shift
-WARNING: shift/reduce conflict for IMP in state 11 resolved as shift
-WARNING: shift/reduce conflict for IMD in state 11 resolved as shift
-WARNING: shift/reduce conflict for AND in state 12 resolved as shift
-WARNING: shift/reduce conflict for OOR in state 12 resolved as shift
-WARNING: shift/reduce conflict for IMP in state 12 resolved as shift
-WARNING: shift/reduce conflict for IMD in state 12 resolved as shift
-WARNING: shift/reduce conflict for AND in state 13 resolved as shift
-WARNING: shift/reduce conflict for OOR in state 13 resolved as shift
-WARNING: shift/reduce conflict for IMP in state 13 resolved as shift
-WARNING: shift/reduce conflict for IMD in state 13 resolved as shift
-WARNING: shift/reduce conflict for AND in state 14 resolved as shift
-WARNING: shift/reduce conflict for OOR in state 14 resolved as shift
-WARNING: shift/reduce conflict for IMP in state 14 resolved as shift
-WARNING: shift/reduce conflict for IMD in state 14 resolved as shift
+  ! AND             [ shift and go to state 6 ]
+  ! OOR             [ shift and go to state 7 ]
+  ! IMP             [ shift and go to state 8 ]
+  ! IMD             [ shift and go to state 9 ]
+
+
+state 16
+
+    (7) expression -> LPR expression RPR .
+
+    AND             reduce using rule 7 (expression -> LPR expression RPR .)
+    OOR             reduce using rule 7 (expression -> LPR expression RPR .)
+    IMP             reduce using rule 7 (expression -> LPR expression RPR .)
+    IMD             reduce using rule 7 (expression -> LPR expression RPR .)
+    $end            reduce using rule 7 (expression -> LPR expression RPR .)
+    RPR             reduce using rule 7 (expression -> LPR expression RPR .)
+
