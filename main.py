@@ -149,5 +149,8 @@ def run(p):
 
 # Probamos el parser:
 # parser.parse("p<=>q")
-parser.parse("~q")
+# parser.parse("~q")
 # parser.parse("((p=>q)^p)")
+
+# Esperado: 0
+parser.parse("(p<=>~p)")
