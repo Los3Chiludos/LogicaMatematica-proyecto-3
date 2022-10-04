@@ -1,6 +1,8 @@
 import ply.lex as lex
 import ply.yacc as yacc
 from Nodo import Nodo
+import sys
+sys.setrecursionlimit(1500)
 
 
 diccionario_valores = {'p': 0, 'q': 0, 's': 0, 'r': 0}
@@ -165,19 +167,23 @@ parser.parse("((p=>q)^p)")
 
 def crearNodo(lista):
     nodo = None
-    if len(lista_prev_arbol) == 3:
-        nodo = Nodo(lista_prev_arbol[0],
-                    lista_prev_arbol[2], None, lista_prev_arbol[1])
+    print(lista)
+    if len(lista) == 3:
+        nodo = Nodo(lista[0],
+                    lista[2], None, lista[1])
+        # print("Nodo de tres: " + str(nodo))
         if type(nodo.derecha) == tuple:
             crearNodo(nodo.derecha)
         if type(nodo.izquierda) == tuple:
             crearNodo(nodo.izquierda)
 
-    elif len(lista_prev_arbol) == 2:
-        nodo = Nodo(None, None, lista_prev_arbol[1], lista_prev_arbol[0])
+    elif len(lista) == 2:
+        nodo = Nodo(None, None, lista[1], lista[0])
+        # print("Nodo de dos: " + str(nodo))
         if type(nodo.abajo) == tuple:
             crearNodo(nodo.abajo)
     print(nodo)
+    print()
 
 
 crearNodo(lista_prev_arbol)
