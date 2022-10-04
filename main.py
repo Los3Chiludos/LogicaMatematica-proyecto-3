@@ -1,8 +1,11 @@
 import ply.lex as lex
 import ply.yacc as yacc
+from Nodo import Nodo
 
 
-diccionario_valores = {'p': 0, 'q': 0}
+diccionario_valores = {'p': 0, 'q': 0, 's': 0, 'r': 0}
+
+lista_prev_arbol = []
 
 # Definir las variables proporcionales y los operadores logicos como alfabetos:
 tokens = (
@@ -77,13 +80,14 @@ def p_expression(p):
                   | VAR'''
 
     # print("Llamandolo:")
-    # for pos in p:
-    #     if pos is not None:
-    #         print(pos, end=' ')
+    lista_prev_arbol.clear()
+    for pos in p:
+        if pos is not None:
+            lista_prev_arbol.append(pos)
+            # print(pos, end=' ')
     # print()
 
     # p[0] = (p[2], p[1], p[3]) if len(p) > 2 else p[1]
-
 
     # print(len(p))
     if len(p) > 3:
@@ -94,7 +98,8 @@ def p_expression(p):
     else:
         p[0] = p[1]
 
-def p_parens( p ):
+
+def p_parens(p):
     '''expression : LPR expression RPR'''
     p[0] = p[2]
 
@@ -155,6 +160,27 @@ def run(p):
 # parser.parse("p<=>q")
 # parser.parse("~q")
 parser.parse("((p=>q)^p)")
+# parser.parse("(~(p^(q|r))|s)")
+
+
+def crearNodo(lista):
+    nodo = None
+    if len(lista_prev_arbol) == 3:
+        nodo = Nodo(lista_prev_arbol[0],
+                    lista_prev_arbol[2], None, lista_prev_arbol[1])
+        if type(nodo.derecha) == tuple:
+            crearNodo(nodo.derecha)
+        if type(nodo.izquierda) == tuple:
+            crearNodo(nodo.izquierda)
+
+    elif len(lista_prev_arbol) == 2:
+        nodo = Nodo(None, None, lista_prev_arbol[1], lista_prev_arbol[0])
+        if type(nodo.abajo) == tuple:
+            crearNodo(nodo.abajo)
+    print(nodo)
+
+
+crearNodo(lista_prev_arbol)
 
 # Esperado: 0
-#parser.parse("(p<=>q)")
+# parser.parse("(p<=>q)")
