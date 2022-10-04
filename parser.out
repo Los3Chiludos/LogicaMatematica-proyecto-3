@@ -9,8 +9,8 @@ Rule 3     expression -> expression OOR expression
 Rule 4     expression -> expression IMP expression
 Rule 5     expression -> expression IMD expression
 Rule 6     expression -> NEG expression
-Rule 7     expression -> LPR expression RPR
-Rule 8     expression -> VAR
+Rule 7     expression -> VAR
+Rule 8     expression -> LPR expression RPR
 Rule 9     empty -> <empty>
 
 Terminals, with rules where they appear
@@ -18,18 +18,18 @@ Terminals, with rules where they appear
 AND                  : 2
 IMD                  : 5
 IMP                  : 4
-LPR                  : 7
+LPR                  : 8
 NEG                  : 6
 OOR                  : 3
-RPR                  : 7
-VAR                  : 8
+RPR                  : 8
+VAR                  : 7
 error                : 
 
 Nonterminals, with rules where they appear
 
 calc                 : 0
 empty                : 
-expression           : 1 2 2 3 3 4 4 5 5 6 7
+expression           : 1 2 2 3 3 4 4 5 5 6 8
 
 Parsing method: LALR
 
@@ -42,12 +42,12 @@ state 0
     (4) expression -> . expression IMP expression
     (5) expression -> . expression IMD expression
     (6) expression -> . NEG expression
-    (7) expression -> . LPR expression RPR
-    (8) expression -> . VAR
+    (7) expression -> . VAR
+    (8) expression -> . LPR expression RPR
 
     NEG             shift and go to state 3
-    LPR             shift and go to state 4
-    VAR             shift and go to state 5
+    VAR             shift and go to state 4
+    LPR             shift and go to state 5
 
     calc                           shift and go to state 1
     expression                     shift and go to state 2
@@ -81,43 +81,43 @@ state 3
     (4) expression -> . expression IMP expression
     (5) expression -> . expression IMD expression
     (6) expression -> . NEG expression
-    (7) expression -> . LPR expression RPR
-    (8) expression -> . VAR
+    (7) expression -> . VAR
+    (8) expression -> . LPR expression RPR
 
     NEG             shift and go to state 3
-    LPR             shift and go to state 4
-    VAR             shift and go to state 5
+    VAR             shift and go to state 4
+    LPR             shift and go to state 5
 
     expression                     shift and go to state 10
 
 state 4
 
-    (7) expression -> LPR . expression RPR
+    (7) expression -> VAR .
+
+    AND             reduce using rule 7 (expression -> VAR .)
+    OOR             reduce using rule 7 (expression -> VAR .)
+    IMP             reduce using rule 7 (expression -> VAR .)
+    IMD             reduce using rule 7 (expression -> VAR .)
+    $end            reduce using rule 7 (expression -> VAR .)
+    RPR             reduce using rule 7 (expression -> VAR .)
+
+
+state 5
+
+    (8) expression -> LPR . expression RPR
     (2) expression -> . expression AND expression
     (3) expression -> . expression OOR expression
     (4) expression -> . expression IMP expression
     (5) expression -> . expression IMD expression
     (6) expression -> . NEG expression
-    (7) expression -> . LPR expression RPR
-    (8) expression -> . VAR
+    (7) expression -> . VAR
+    (8) expression -> . LPR expression RPR
 
     NEG             shift and go to state 3
-    LPR             shift and go to state 4
-    VAR             shift and go to state 5
+    VAR             shift and go to state 4
+    LPR             shift and go to state 5
 
     expression                     shift and go to state 11
-
-state 5
-
-    (8) expression -> VAR .
-
-    AND             reduce using rule 8 (expression -> VAR .)
-    OOR             reduce using rule 8 (expression -> VAR .)
-    IMP             reduce using rule 8 (expression -> VAR .)
-    IMD             reduce using rule 8 (expression -> VAR .)
-    $end            reduce using rule 8 (expression -> VAR .)
-    RPR             reduce using rule 8 (expression -> VAR .)
-
 
 state 6
 
@@ -127,12 +127,12 @@ state 6
     (4) expression -> . expression IMP expression
     (5) expression -> . expression IMD expression
     (6) expression -> . NEG expression
-    (7) expression -> . LPR expression RPR
-    (8) expression -> . VAR
+    (7) expression -> . VAR
+    (8) expression -> . LPR expression RPR
 
     NEG             shift and go to state 3
-    LPR             shift and go to state 4
-    VAR             shift and go to state 5
+    VAR             shift and go to state 4
+    LPR             shift and go to state 5
 
     expression                     shift and go to state 12
 
@@ -144,12 +144,12 @@ state 7
     (4) expression -> . expression IMP expression
     (5) expression -> . expression IMD expression
     (6) expression -> . NEG expression
-    (7) expression -> . LPR expression RPR
-    (8) expression -> . VAR
+    (7) expression -> . VAR
+    (8) expression -> . LPR expression RPR
 
     NEG             shift and go to state 3
-    LPR             shift and go to state 4
-    VAR             shift and go to state 5
+    VAR             shift and go to state 4
+    LPR             shift and go to state 5
 
     expression                     shift and go to state 13
 
@@ -161,12 +161,12 @@ state 8
     (4) expression -> . expression IMP expression
     (5) expression -> . expression IMD expression
     (6) expression -> . NEG expression
-    (7) expression -> . LPR expression RPR
-    (8) expression -> . VAR
+    (7) expression -> . VAR
+    (8) expression -> . LPR expression RPR
 
     NEG             shift and go to state 3
-    LPR             shift and go to state 4
-    VAR             shift and go to state 5
+    VAR             shift and go to state 4
+    LPR             shift and go to state 5
 
     expression                     shift and go to state 14
 
@@ -178,12 +178,12 @@ state 9
     (4) expression -> . expression IMP expression
     (5) expression -> . expression IMD expression
     (6) expression -> . NEG expression
-    (7) expression -> . LPR expression RPR
-    (8) expression -> . VAR
+    (7) expression -> . VAR
+    (8) expression -> . LPR expression RPR
 
     NEG             shift and go to state 3
-    LPR             shift and go to state 4
-    VAR             shift and go to state 5
+    VAR             shift and go to state 4
+    LPR             shift and go to state 5
 
     expression                     shift and go to state 15
 
@@ -210,7 +210,7 @@ state 10
 
 state 11
 
-    (7) expression -> LPR expression . RPR
+    (8) expression -> LPR expression . RPR
     (2) expression -> expression . AND expression
     (3) expression -> expression . OOR expression
     (4) expression -> expression . IMP expression
@@ -309,12 +309,12 @@ state 15
 
 state 16
 
-    (7) expression -> LPR expression RPR .
+    (8) expression -> LPR expression RPR .
 
-    AND             reduce using rule 7 (expression -> LPR expression RPR .)
-    OOR             reduce using rule 7 (expression -> LPR expression RPR .)
-    IMP             reduce using rule 7 (expression -> LPR expression RPR .)
-    IMD             reduce using rule 7 (expression -> LPR expression RPR .)
-    $end            reduce using rule 7 (expression -> LPR expression RPR .)
-    RPR             reduce using rule 7 (expression -> LPR expression RPR .)
+    AND             reduce using rule 8 (expression -> LPR expression RPR .)
+    OOR             reduce using rule 8 (expression -> LPR expression RPR .)
+    IMP             reduce using rule 8 (expression -> LPR expression RPR .)
+    IMD             reduce using rule 8 (expression -> LPR expression RPR .)
+    $end            reduce using rule 8 (expression -> LPR expression RPR .)
+    RPR             reduce using rule 8 (expression -> LPR expression RPR .)
 

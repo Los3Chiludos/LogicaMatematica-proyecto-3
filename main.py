@@ -74,7 +74,6 @@ def p_expression(p):
                   | expression IMP expression
                   | expression IMD expression
                   | NEG expression
-                  | LPR expression RPR
                   | VAR'''
 
     # print("Llamandolo:")
@@ -85,6 +84,7 @@ def p_expression(p):
 
     # p[0] = (p[2], p[1], p[3]) if len(p) > 2 else p[1]
 
+
     # print(len(p))
     if len(p) > 3:
         # print("Entro con 2")
@@ -93,6 +93,10 @@ def p_expression(p):
         p[0] = (p[1], p[2])
     else:
         p[0] = p[1]
+
+def p_parens( p ):
+    '''expression : LPR expression RPR'''
+    p[0] = p[2]
 
 # Definimos la funcion para errores de sintaxis:
 
@@ -150,7 +154,7 @@ def run(p):
 # Probamos el parser:
 # parser.parse("p<=>q")
 # parser.parse("~q")
-# parser.parse("((p=>q)^p)")
+parser.parse("((p=>q)^p)")
 
 # Esperado: 0
-parser.parse("(p<=>~p)")
+#parser.parse("(p<=>q)")
