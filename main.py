@@ -2,6 +2,8 @@ import ply.lex as lex
 import ply.yacc as yacc
 from Nodo import Nodo
 import sys
+import networkx as nx
+import matplotlib.pyplot as plt
 sys.setrecursionlimit(1500)
 
 
@@ -166,13 +168,15 @@ parser.parse("(~(p^(q|r))|s)")
 
 iteraciones = 0
 
-
+listanodos = []
 def crearNodo(lista):
+    
     global iteraciones
     nodo = None
-    print(lista)
+    # print(lista)
     # izquierda, derecha, abajo, valor
     # ('~', ('^', 'p', ('|', 'q', 'r'))), '|', 's'
+    # print(len(lista))
     if len(lista) == 3:
         if iteraciones > 0:
             nodo = Nodo(lista[1], lista[2], None, lista[0])
@@ -182,20 +186,52 @@ def crearNodo(lista):
         iteraciones += 1
         if type(nodo.derecha) == tuple:
             nodo.derecha = crearNodo(nodo.derecha)
+        else:
+            nodo.derecha = Nodo(None, None, None, nodo.derecha)
         if type(nodo.izquierda) == tuple:
             nodo.izquierda = crearNodo(nodo.izquierda)
+        else:
+            nodo.izquierda = Nodo(None, None, None, nodo.izquierda)
 
     elif len(lista) == 2:
         nodo = Nodo(None, None, lista[1], lista[0])
         # print("Nodo de dos: " + str(nodo))
         if type(nodo.abajo) == tuple:
             nodo.abajo = crearNodo(nodo.abajo)
-    print(nodo)
+        else:
+            nodo.abajo = Nodo(None, None, None, nodo.abajo)
+    # print(nodo)
     return nodo
-    print()
+
+    # print()
 
 
-crearNodo(lista_prev_arbol)
+nodoFinal = crearNodo(lista_prev_arbol)
+print(listanodos)
+
+print("Nodo Final: \n" + str(nodoFinal))
+
+# g = nx.Graph()
+# g.add_edge(1, 2)
+# g.add_edge(2, 3)
+# g.add_edge(3, 4)
+# g.add_edge(1, 4)
+# g.add_edge(1, 5)
+# g.add_edge(5, 6)
+# g.add_edge(5, 7)
+# g.add_edge(4, 8)
+# g.add_edge(3, 8)
+ 
+# # drawing in circular layout
+# nx.draw_circular(g, with_labels = True)
+# plt.savefig("filename1.png")
+ 
+# # clearing the current plot
+# plt.clf()
+
+
+
+
 
 # Esperado: 0
 # parser.parse("(p<=>q)")
