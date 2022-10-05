@@ -6,4 +6,4 @@ class Nodo:
         self.valor = valor
 
     def __str__(self):
-        return "Nodo " + str(self.valor) + " : IZQ: " + str(self.izquierda) + "| DER: " + str(self.derecha) + " | ABJ: " + str(self.abajo)
+        return "Nodo " + str(self.valor) + " : IZQ: (" + str(self.izquierda) + ") DER: (" + str(self.derecha) + ") ABJ: (" + str(self.abajo) + ")"

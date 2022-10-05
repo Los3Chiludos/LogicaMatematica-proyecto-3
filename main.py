@@ -161,28 +161,37 @@ def run(p):
 # Probamos el parser:
 # parser.parse("p<=>q")
 # parser.parse("~q")
-parser.parse("((p=>q)^p)")
-# parser.parse("(~(p^(q|r))|s)")
+# parser.parse("((p=>q)^p)")
+parser.parse("(~(p^(q|r))|s)")
+
+iteraciones = 0
 
 
 def crearNodo(lista):
+    global iteraciones
     nodo = None
     print(lista)
+    # izquierda, derecha, abajo, valor
+    # ('~', ('^', 'p', ('|', 'q', 'r'))), '|', 's'
     if len(lista) == 3:
-        nodo = Nodo(lista[0],
-                    lista[2], None, lista[1])
+        if iteraciones > 0:
+            nodo = Nodo(lista[1], lista[2], None, lista[0])
+        else:
+            nodo = Nodo(lista[0], lista[2], None, lista[1])
         # print("Nodo de tres: " + str(nodo))
+        iteraciones += 1
         if type(nodo.derecha) == tuple:
-            crearNodo(nodo.derecha)
+            nodo.derecha = crearNodo(nodo.derecha)
         if type(nodo.izquierda) == tuple:
-            crearNodo(nodo.izquierda)
+            nodo.izquierda = crearNodo(nodo.izquierda)
 
     elif len(lista) == 2:
         nodo = Nodo(None, None, lista[1], lista[0])
         # print("Nodo de dos: " + str(nodo))
         if type(nodo.abajo) == tuple:
-            crearNodo(nodo.abajo)
+            nodo.abajo = crearNodo(nodo.abajo)
     print(nodo)
+    return nodo
     print()
 
 
