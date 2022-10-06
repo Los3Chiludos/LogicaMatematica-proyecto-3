@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 sys.setrecursionlimit(1500)
 
 
-diccionario_valores = {'p': 0, 'q': 0, 's': 0, 'r': 0}
+diccionario_valores = {'p': 0, 'q': 0, 's': 0, 'r': 0, '0': 0, '1': 1}
 
 lista_prev_arbol = []
 
@@ -40,7 +40,7 @@ t_ignore = r' '
 
 
 def t_VAR(t):
-    r'[p-zP-Z]'
+    r'[p-zP-Z0-9]'
     t.type = 'VAR'
     return t
 
@@ -164,14 +164,20 @@ def run(p):
 # parser.parse("p<=>q")
 # parser.parse("~q")
 # parser.parse("((p=>q)^p)")
-parser.parse("(~(p^(q|r))|s)")
+# parser.parse("(~(p^(q|r))|s)")
+parser.parse("0=>(r|s)")
 
 iteraciones = 0
 
+numeroNodos = 1
+
 listanodos = []
+
+
 def crearNodo(lista):
-    
+
     global iteraciones
+    global numeroNodos
     nodo = None
     # print(lista)
     # izquierda, derecha, abajo, valor
@@ -179,27 +185,33 @@ def crearNodo(lista):
     # print(len(lista))
     if len(lista) == 3:
         if iteraciones > 0:
-            nodo = Nodo(lista[1], lista[2], None, lista[0])
+            nodo = Nodo(lista[1], lista[2], None, lista[0], numeroNodos)
+            numeroNodos += 1
         else:
-            nodo = Nodo(lista[0], lista[2], None, lista[1])
+            nodo = Nodo(lista[0], lista[2], None, lista[1], numeroNodos)
+            numeroNodos += 1
         # print("Nodo de tres: " + str(nodo))
         iteraciones += 1
         if type(nodo.derecha) == tuple:
             nodo.derecha = crearNodo(nodo.derecha)
         else:
-            nodo.derecha = Nodo(None, None, None, nodo.derecha)
+            nodo.derecha = Nodo(None, None, None, nodo.derecha, numeroNodos)
+            numeroNodos += 1
         if type(nodo.izquierda) == tuple:
             nodo.izquierda = crearNodo(nodo.izquierda)
         else:
-            nodo.izquierda = Nodo(None, None, None, nodo.izquierda)
+            nodo.izquierda = Nodo(
+                None, None, None, nodo.izquierda, numeroNodos)
+            numeroNodos += 1
 
     elif len(lista) == 2:
-        nodo = Nodo(None, None, lista[1], lista[0])
-        # print("Nodo de dos: " + str(nodo))
+        nodo = Nodo(None, None, lista[1], lista[0], numeroNodos)
+        numeroNodos += 1
         if type(nodo.abajo) == tuple:
             nodo.abajo = crearNodo(nodo.abajo)
         else:
-            nodo.abajo = Nodo(None, None, None, nodo.abajo)
+            nodo.abajo = Nodo(None, None, None, nodo.abajo, numeroNodos)
+            numeroNodos += 1
     # print(nodo)
     return nodo
 
@@ -207,11 +219,11 @@ def crearNodo(lista):
 
 
 nodoFinal = crearNodo(lista_prev_arbol)
-print(listanodos)
+# print(listanodos)
 
-print("Nodo Final: \n" + str(nodoFinal))
+# print("Nodo Final: \n" + str(nodoFinal))
 
-# g = nx.Graph()
+g = nx.DiGraph()
 # g.add_edge(1, 2)
 # g.add_edge(2, 3)
 # g.add_edge(3, 4)
@@ -221,16 +233,35 @@ print("Nodo Final: \n" + str(nodoFinal))
 # g.add_edge(5, 7)
 # g.add_edge(4, 8)
 # g.add_edge(3, 8)
- 
-# # drawing in circular layout
-# nx.draw_circular(g, with_labels = True)
-# plt.savefig("filename1.png")
- 
-# # clearing the current plot
-# plt.clf()
+
+# Creando los nodos del grafo:
 
 
+def crearGrafo(nodo_temp):
+    global numeros
+    if nodo_temp.izquierda != None:
+        g.add_edge(nodo_temp.valor + " " + str(nodo_temp.numero),
+                   crearGrafo(nodo_temp.izquierda))
+    if nodo_temp.derecha != None:
+        g.add_edge(nodo_temp.valor + " " + str(nodo_temp.numero),
+                   crearGrafo(nodo_temp.derecha))
 
+    if nodo_temp.abajo != None:
+        g.add_edge(nodo_temp.valor + " " + str(nodo_temp.numero),
+                   crearGrafo(nodo_temp.abajo))
+
+    return nodo_temp.valor + " " + str(nodo_temp.numero)
+
+
+crearGrafo(nodoFinal)
+
+
+# drawing in circular layout
+nx.draw_circular(g,  with_labels=True, node_size=2000)
+plt.savefig("grafoPrueba.png")
+
+# clearing the current plot
+plt.clf()
 
 
 # Esperado: 0
